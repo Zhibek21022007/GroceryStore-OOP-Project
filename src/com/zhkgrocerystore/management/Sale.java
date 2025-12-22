@@ -1,10 +1,10 @@
 package com.zhkgrocerystore.management;
 
 public class Sale {
-    private final int saleId;
-    private final String customerName;
+    private int saleId;
+    private String customerName;
     private double totalAmount;
-    private final String date;
+    private String date;
 
     public Sale(int saleId, String customerName, double totalAmount, String date) {
         this.saleId = saleId;
@@ -24,8 +24,32 @@ public class Sale {
         return saleId;
     }
 
+    public String getCustomerName() {
+        return customerName;
+    }
+
     public double getTotalAmount() {
         return totalAmount;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setSaleId(int saleId) {
+        this.saleId = saleId;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public void addItem(double price) {
