@@ -1,143 +1,137 @@
 package com.zhkgrocerystore.management;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Main {
+
+    private static ArrayList<Product> products = new ArrayList<>();
+    private static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
 
-        // ===============================
-        // 1. WELCOME MESSAGE
-        // ===============================
-        System.out.println("=======================================");
-        System.out.println("  GROCERY STORE MANAGEMENT SYSTEM");
-        System.out.println("=======================================\n");
+        products.add(new Product(1, "Soap", 300, 10));
+        products.add(new FreshProduct(2, "Milk", 450, 12, 3));
+        products.add(new PackagedProduct(3, "Rice", 3500, 20, "Makfa"));
 
-        // ===============================
-        // 2. CREATE PRODUCTS
-        // ===============================
-        System.out.println(">>> Creating products...\n");
+        boolean running = true;
 
-        Product milk = new Product(1, "Milk", 450.0, 20);
-        Product bread = new Product(2, "Bread", 250.0, 0);
+        while (running) {
+            showMenu();
+            int choice = scanner.nextInt();
+            scanner.nextLine();
 
-        Product apple = new Product(); // default constructor
-        apple.setName("Apple");
-        apple.setPrice(300.0);
-        apple.setStockQuantity(50);
+            switch (choice) {
+                case 1 -> addGeneralProduct();
+                case 2 -> addFreshProduct();
+                case 3 -> addPackagedProduct();
+                case 4 -> viewAllProducts();
+                case 5 -> viewFreshOnly();
+                case 0 -> running = false;
+                default -> System.out.println("Invalid choice.");
+            }
+        }
 
-        // ===============================
-        // 3. CREATE CUSTOMERS
-        // ===============================
-        System.out.println(">>> Creating customers...\n");
+        System.out.println("Application closed.");
+    }
 
-        Customer customer1 = new Customer(101, "Aruzhan", "Regular", 85_000);
+    private static void showMenu() {
+        System.out.println("""
+        ===============================
+        GROCERY STORE MANAGEMENT MENU
+        ===============================
+        1. Add General Product
+        2. Add Fresh Product
+        3. Add Packaged Product
+        4. View All Products
+        5. View Fresh Products Only
+        0. Exit
+        ===============================
+        Enter choice:
+        """);
+    }
 
-        Customer customer2 = new Customer(); // default constructor
-        customer2.setMembershipLevel("Gold");
+    private static void addGeneralProduct() {
+        System.out.print("ID: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
 
-        // ===============================
-        // 4. CREATE SALE
-        // ===============================
-        System.out.println(">>> Creating a new sale...\n");
+        System.out.print("Name: ");
+        String name = scanner.nextLine();
 
-        Sale sale1 = new Sale(); // default constructor
-        sale1.setSaleId(1001);
-        sale1.setCustomerName(customer1.getName());
-        sale1.setDate("2025-12-21");
+        System.out.print("Price: ");
+        double price = scanner.nextDouble();
 
-        // ===============================
-        // 5. DISPLAY INITIAL STATE
-        // ===============================
-        System.out.println("----- INITIAL STATE -----\n");
+        System.out.print("Quantity: ");
+        int qty = scanner.nextInt();
 
-        System.out.println("Products:");
-        System.out.println(milk);
-        System.out.println(bread);
-        System.out.println(apple);
+        products.add(new Product(id, name, price, qty));
+        System.out.println("Product added.");
+    }
 
-        System.out.println("\nCustomers:");
-        System.out.println(customer1);
-        System.out.println(customer2);
+    private static void addFreshProduct() {
+        System.out.print("ID: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
 
-        System.out.println("\nSale:");
-        System.out.println(sale1);
+        System.out.print("Name: ");
+        String name = scanner.nextLine();
 
-        // ===============================
-        // 6. TEST GETTERS
-        // ===============================
-        System.out.println("\n----- TESTING GETTERS -----\n");
+        System.out.print("Price: ");
+        double price = scanner.nextDouble();
 
-        System.out.println("Milk price: " + milk.getPrice() + " KZT");
-        System.out.println("Bread stock: " + bread.getStockQuantity());
-        System.out.println("Sale date: " + sale1.getDate());
+        System.out.print("Quantity: ");
+        int qty = scanner.nextInt();
 
-        // ===============================
-        // 7. TEST SETTERS
-        // ===============================
-        System.out.println("\n----- TESTING SETTERS -----\n");
+        System.out.print("Shelf life (days): ");
+        int days = scanner.nextInt();
 
-        bread.setStockQuantity(30);
-        customer1.setMembershipLevel("Silver");
-        sale1.setTotalAmount(0.0);
+        products.add(new FreshProduct(id, name, price, qty, days));
+        System.out.println("Fresh product added.");
+    }
 
-        System.out.println("Updated bread: " + bread);
-        System.out.println("Updated customer: " + customer1);
-        System.out.println("Updated sale: " + sale1);
+    private static void addPackagedProduct() {
+        System.out.print("ID: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
 
-        // ===============================
-        // 8. TEST PRODUCT METHODS
-        // ===============================
-        System.out.println("\n----- TESTING PRODUCT METHODS -----\n");
+        System.out.print("Name: ");
+        String name = scanner.nextLine();
 
-        System.out.println("Is milk in stock? " + milk.isInStock());
-        System.out.println("Is bread in stock? " + bread.isInStock());
+        System.out.print("Price: ");
+        double price = scanner.nextDouble();
 
-        bread.restock(20);
-        System.out.println("Bread after restock: " + bread);
+        System.out.print("Quantity: ");
+        int qty = scanner.nextInt();
+        scanner.nextLine();
 
-        // ===============================
-        // 9. TEST SALE METHODS
-        // ===============================
-        System.out.println("\n----- TESTING SALE METHODS -----\n");
+        System.out.print("Brand: ");
+        String brand = scanner.nextLine();
 
-        sale1.addItem(milk.getPrice());
-        sale1.addItem(bread.getPrice());
-        sale1.addItem(apple.getPrice());
+        products.add(new PackagedProduct(id, name, price, qty, brand));
+        System.out.println("Packaged product added.");
+    }
 
-        System.out.println("Sale after adding items:");
-        System.out.println(sale1);
-        System.out.println("Is large sale? " + sale1.isLargeSale());
+    private static void viewAllProducts() {
+        if (products.isEmpty()) {
+            System.out.println("No products available.");
+            return;
+        }
 
-        // ===============================
-        // 10. TEST CUSTOMER METHODS
-        // ===============================
-        System.out.println("\n----- TESTING CUSTOMER METHODS -----\n");
+        for (Product p : products) {
+            System.out.println(p);
+        }
+    }
 
-        customer1.addPurchase(sale1.getTotalAmount());
-        System.out.println("Customer after purchase:");
-        System.out.println(customer1);
-        System.out.println("Is customer VIP? " + customer1.isVIP());
-
-        // ===============================
-        // 11. FINAL SUMMARY
-        // ===============================
-        System.out.println("\n----- FINAL STATE SUMMARY -----\n");
-
-        System.out.println("Final Products:");
-        System.out.println(milk);
-        System.out.println(bread);
-        System.out.println(apple);
-
-        System.out.println("\nFinal Customers:");
-        System.out.println(customer1);
-        System.out.println(customer2);
-
-        System.out.println("\nFinal Sale:");
-        System.out.println(sale1);
-
-        // ===============================
-        // 12. PROGRAM END
-        // ===============================
-        System.out.println("\n=======================================");
-        System.out.println("        PROGRAM EXECUTION COMPLETE");
-        System.out.println("=======================================");
+    private static void viewFreshOnly() {
+        for (Product p : products) {
+            if (p instanceof FreshProduct) {
+                FreshProduct fp = (FreshProduct) p;
+                System.out.println(fp);
+                if (fp.needsQuickSale()) {
+                    System.out.println("⚠ Needs quick sale!");
+                }
+            }
+        }
     }
 }

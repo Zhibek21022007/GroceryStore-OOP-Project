@@ -1,70 +1,95 @@
 package com.zhkgrocerystore.management;
 
 public class Sale {
-    private int saleId;
-    private String customerName;
-    private double totalAmount;
-    private String date;
 
-    public Sale(int saleId, String customerName, double totalAmount, String date) {
+    private int saleId;
+    private int productId;
+    private int customerId;
+    private int quantitySold;
+    private double totalAmount;
+
+    public Sale(int saleId, int productId, int customerId, int quantitySold, double totalAmount) {
         this.saleId = saleId;
-        this.customerName = customerName;
-        this.totalAmount = totalAmount;
-        this.date = date;
+        setProductId(productId);
+        setCustomerId(customerId);
+        setQuantitySold(quantitySold);
+        setTotalAmount(totalAmount);
     }
 
     public Sale() {
         this.saleId = 0;
-        this.customerName = "Unknown";
+        this.productId = 0;
+        this.customerId = 0;
+        this.quantitySold = 0;
         this.totalAmount = 0.0;
-        this.date = "N/A";
     }
 
     public int getSaleId() {
         return saleId;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public int getProductId() {
+        return productId;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public int getQuantitySold() {
+        return quantitySold;
     }
 
     public double getTotalAmount() {
         return totalAmount;
     }
 
-    public String getDate() {
-        return date;
-    }
-
     public void setSaleId(int saleId) {
-        this.saleId = saleId;
+        if (saleId > 0) {
+            this.saleId = saleId;
+        }
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setProductId(int productId) {
+        if (productId > 0) {
+            this.productId = productId;
+        }
+    }
+
+    public void setCustomerId(int customerId) {
+        if (customerId > 0) {
+            this.customerId = customerId;
+        }
+    }
+
+    public void setQuantitySold(int quantitySold) {
+        if (quantitySold > 0) {
+            this.quantitySold = quantitySold;
+        }
     }
 
     public void setTotalAmount(double totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public void addItem(double price) {
-        totalAmount += price;
+        if (totalAmount >= 0) {
+            this.totalAmount = totalAmount;
+        }
     }
 
     public boolean isLargeSale() {
-        return totalAmount > 20000;
+        return totalAmount >= 30000;
+    }
+
+    public void recalculateTotal(double pricePerUnit) {
+        if (pricePerUnit > 0 && quantitySold > 0) {
+            totalAmount = pricePerUnit * quantitySold;
+        }
     }
 
     @Override
     public String toString() {
         return "Sale{id=" + saleId +
-                ", customer='" + customerName + '\'' +
-                ", total=" + totalAmount +
-                ", date='" + date + '\'' + '}';
+                ", productId=" + productId +
+                ", customerId=" + customerId +
+                ", quantitySold=" + quantitySold +
+                ", totalAmount=" + totalAmount + '}';
     }
 }

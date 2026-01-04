@@ -1,58 +1,86 @@
 package com.zhkgrocerystore.management;
 
 public class Customer {
-    private final int customerId;
-    private final String name;
-    private String membershipLevel;
-    private double totalPurchases;
 
-    public Customer(int customerId, String name, String membershipLevel, double totalPurchases) {
+    private int customerId;
+    private String fullName;
+    private String phone;
+    private double totalSpent;
+
+    public Customer(int customerId, String fullName, String phone, double totalSpent) {
         this.customerId = customerId;
-        this.name = name;
-        this.membershipLevel = membershipLevel;
-        this.totalPurchases = totalPurchases;
+        setFullName(fullName);
+        setPhone(phone);
+        setTotalSpent(totalSpent);
     }
 
     public Customer() {
         this.customerId = 0;
-        this.name = "Unknown Customer";
-        this.membershipLevel = "Regular";
-        this.totalPurchases = 0.0;
+        this.fullName = "Guest";
+        this.phone = "N/A";
+        this.totalSpent = 0.0;
     }
 
     public int getCustomerId() {
         return customerId;
     }
 
-    public String getName() {
-        return name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public String getMembershipLevel() {
-        return membershipLevel;
+    public String getPhone() {
+        return phone;
     }
 
-    public double getTotalPurchases() {
-        return totalPurchases;
+    public double getTotalSpent() {
+        return totalSpent;
     }
 
-    public void setMembershipLevel(String membershipLevel) {
-        this.membershipLevel = membershipLevel;
+    public void setCustomerId(int customerId) {
+        if (customerId > 0) {
+            this.customerId = customerId;
+        }
+    }
+
+    public void setFullName(String fullName) {
+        if (fullName != null && !fullName.trim().isEmpty()) {
+            this.fullName = fullName;
+        } else {
+            System.out.println("⚠ Customer name cannot be empty.");
+        }
+    }
+
+    public void setPhone(String phone) {
+        if (phone != null && phone.contains("+")) {
+            this.phone = phone;
+        } else {
+            System.out.println("⚠ Invalid phone number.");
+            this.phone = "Unknown";
+        }
+    }
+
+    public void setTotalSpent(double totalSpent) {
+        if (totalSpent >= 0) {
+            this.totalSpent = totalSpent;
+        }
     }
 
     public void addPurchase(double amount) {
-        totalPurchases += amount;
+        if (amount > 0) {
+            totalSpent += amount;
+        }
     }
 
     public boolean isVIP() {
-        return totalPurchases > 100000;
+        return totalSpent >= 100000;
     }
 
     @Override
     public String toString() {
         return "Customer{id=" + customerId +
-                ", name='" + name + '\'' +
-                ", level='" + membershipLevel + '\'' +
-                ", purchases=" + totalPurchases + '}';
+                ", name='" + fullName + '\'' +
+                ", phone='" + phone + '\'' +
+                ", totalSpent=" + totalSpent + '}';
     }
 }

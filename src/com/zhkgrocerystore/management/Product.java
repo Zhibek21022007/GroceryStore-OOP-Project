@@ -1,23 +1,24 @@
 package com.zhkgrocerystore.management;
 
 public class Product {
-    private final int productId;
+
+    private int productId;
     private String name;
     private double price;
-    private int stockQuantity;
+    private int quantity;
 
-    public Product(int productId, String name, double price, int stockQuantity) {
+    public Product(int productId, String name, double price, int quantity) {
         this.productId = productId;
-        this.name = name;
-        this.price = price;
-        this.stockQuantity = stockQuantity;
+        setName(name);
+        setPrice(price);
+        setQuantity(quantity);
     }
 
     public Product() {
         this.productId = 0;
-        this.name = "Unknown Product";
+        this.name = "Unnamed Product";
         this.price = 0.0;
-        this.stockQuantity = 0;
+        this.quantity = 0;
     }
 
     public int getProductId() {
@@ -32,35 +33,59 @@ public class Product {
         return price;
     }
 
-    public int getStockQuantity() {
-        return stockQuantity;
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setProductId(int productId) {
+        if (productId > 0) {
+            this.productId = productId;
+        }
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (name != null && !name.trim().isEmpty()) {
+            this.name = name;
+        } else {
+            System.out.println("⚠ Product name cannot be empty.");
+        }
     }
 
     public void setPrice(double price) {
-        this.price = price;
+        if (price >= 0) {
+            this.price = price;
+        } else {
+            System.out.println("⚠ Price cannot be negative. Set to 0.");
+            this.price = 0;
+        }
     }
 
-    public void setStockQuantity(int stockQuantity) {
-        this.stockQuantity = stockQuantity;
+    public void setQuantity(int quantity) {
+        if (quantity >= 0) {
+            this.quantity = quantity;
+        } else {
+            System.out.println("⚠ Quantity cannot be negative.");
+            this.quantity = 0;
+        }
     }
 
-    public boolean isInStock() {
-        return stockQuantity > 0;
+    public boolean isAvailable() {
+        return quantity > 0;
     }
 
     public void restock(int amount) {
-        stockQuantity += amount;
+        if (amount > 0) {
+            quantity += amount;
+        }
     }
 
     @Override
     public String toString() {
-        return "Product{id=" + productId +
+        return "Product{" +
+                "id=" + productId +
                 ", name='" + name + '\'' +
                 ", price=" + price +
-                ", stock=" + stockQuantity + '}';
+                ", quantity=" + quantity +
+                '}';
     }
 }
