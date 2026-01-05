@@ -7,6 +7,7 @@ public class PackagedProduct extends Product {
     public PackagedProduct(int productId, String name, double price, int quantity, String brand) {
         super(productId, name, price, quantity);
         this.brand = brand;
+        this.category = "Packaged";
     }
 
     public String getBrand() {
@@ -19,6 +20,7 @@ public class PackagedProduct extends Product {
 
     @Override
     public String toString() {
-        return super.toString() + " | Brand: " + brand;
+        return super.toString() +
+                ", brand='" + brand + '\'';
     }
 }

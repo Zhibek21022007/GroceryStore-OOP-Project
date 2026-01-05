@@ -6,12 +6,14 @@ public class Product {
     private String name;
     private double price;
     private int quantity;
+    protected String category;
 
     public Product(int productId, String name, double price, int quantity) {
         this.productId = productId;
         setName(name);
         setPrice(price);
         setQuantity(quantity);
+        this.category = "General";
     }
 
     public Product() {
@@ -19,6 +21,7 @@ public class Product {
         this.name = "Unnamed Product";
         this.price = 0.0;
         this.quantity = 0;
+        this.category = "General";
     }
 
     public int getProductId() {
@@ -35,6 +38,10 @@ public class Product {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public String getCategory() {
+        return category;
     }
 
     public void setProductId(int productId) {
@@ -84,6 +91,7 @@ public class Product {
         return "Product{" +
                 "id=" + productId +
                 ", name='" + name + '\'' +
+                ", category='" + category + '\'' +
                 ", price=" + price +
                 ", quantity=" + quantity +
                 '}';

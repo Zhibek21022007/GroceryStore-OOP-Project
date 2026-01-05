@@ -7,6 +7,7 @@ public class FreshProduct extends Product {
     public FreshProduct(int productId, String name, double price, int quantity, int shelfLifeDays) {
         super(productId, name, price, quantity);
         this.shelfLifeDays = shelfLifeDays;
+        this.category = "Fresh";
     }
 
     public int getShelfLifeDays() {
@@ -19,6 +20,7 @@ public class FreshProduct extends Product {
 
     @Override
     public String toString() {
-        return super.toString() + " | Shelf life: " + shelfLifeDays + " days";
+        return super.toString() +
+                ", shelfLifeDays=" + shelfLifeDays;
     }
 }
