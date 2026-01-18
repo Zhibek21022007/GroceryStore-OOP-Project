@@ -4,23 +4,18 @@ public class FreshProduct extends Product {
 
     private int shelfLifeDays;
 
-    public FreshProduct(int productId, String name, double price, int quantity, int shelfLifeDays) {
-        super(productId, name, price, quantity);
+    public FreshProduct(int id, String name, double price, int qty, int shelfLifeDays) {
+        super(id, name, price, qty);
         this.shelfLifeDays = shelfLifeDays;
         this.category = "Fresh";
     }
 
+    @Override
+    public String getProductType() {
+        return "Fresh Product";
+    }
+
     public int getShelfLifeDays() {
         return shelfLifeDays;
-    }
-
-    public boolean needsQuickSale() {
-        return shelfLifeDays <= 2;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() +
-                ", shelfLifeDays=" + shelfLifeDays;
     }
 }

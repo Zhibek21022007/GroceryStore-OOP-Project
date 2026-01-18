@@ -2,25 +2,20 @@ package com.zhkgrocerystore.management;
 
 public class PackagedProduct extends Product {
 
-    private String brand;
+    private String expiryDate;
 
-    public PackagedProduct(int productId, String name, double price, int quantity, String brand) {
-        super(productId, name, price, quantity);
-        this.brand = brand;
+    public PackagedProduct(int id, String name, double price, int quantity, String expiryDate) {
+        super(id, name, price, quantity);
+        this.expiryDate = expiryDate;
         this.category = "Packaged";
     }
 
-    public String getBrand() {
-        return brand;
-    }
-
-    public boolean isPremiumBrand() {
-        return brand.length() > 6;
-    }
-
     @Override
-    public String toString() {
-        return super.toString() +
-                ", brand='" + brand + '\'';
+    public String getProductType() {
+        return "Packaged Product";
+    }
+
+    public String getExpiryDate() {
+        return expiryDate;
     }
 }
