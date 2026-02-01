@@ -5,6 +5,7 @@ import com.zhkgrocerystore.management.exception.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import database.ProductDAO;
 
 public class MenuManager implements Menu {
 
