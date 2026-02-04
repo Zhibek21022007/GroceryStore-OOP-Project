@@ -222,8 +222,6 @@ public class ProductDAO {
             statement.setInt(1, minQuantity);
             ResultSet resultSet = statement.executeQuery();
 
-            System.out.println("\n--- PRODUCTS WITH MINIMUM QUANTITY  " + minQuantity + " ---");
-
             boolean found = false;
 
             while (resultSet.next()) {
