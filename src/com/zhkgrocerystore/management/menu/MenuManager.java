@@ -21,6 +21,7 @@ public class MenuManager implements Menu {
         System.out.println("5. Delete Product");
         System.out.println("6. Search by Name");
         System.out.println("7. Search by Quantity Range");
+        System.out.println("8. Search by Minimum Quantity");
         System.out.println("0. Exit");
         System.out.print("Choose option: ");
     }
@@ -40,6 +41,7 @@ public class MenuManager implements Menu {
                     case 5 -> deleteProduct();
                     case 6 -> searchByName();
                     case 7 -> searchByQuantityRange();
+                    case 8 -> searchByMinQuantity();
                     case 0 -> running = false;
                     default -> System.out.println(" Invalid option!");
                 }
@@ -150,6 +152,18 @@ public class MenuManager implements Menu {
         System.out.print("Enter name keyword: ");
         String keyword = scanner.nextLine();
         productDAO.searchByName(keyword);
+    }
+
+    private void searchByMinQuantity() {
+        try {
+            System.out.print("Enter minimum quantity: ");
+            int minQuantity = Integer.parseInt(scanner.nextLine());
+
+            productDAO.searchByMinQuantity(minQuantity);
+
+        } catch (NumberFormatException e) {
+            System.out.println(" Quantity must be a number!");
+        }
     }
 
     private void searchByQuantityRange() {

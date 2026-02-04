@@ -211,6 +211,55 @@ public class ProductDAO {
             DatabaseConnection.closeConnection(connection);
         }
     }
+
+    public void searchByMinQuantity(int minQuantity) {
+
+        String sql = "SELECT * FROM product WHERE quantity >= ? ORDER BY quantity DESC";
+        Connection connection = DatabaseConnection.getConnection();
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, minQuantity);
+            ResultSet resultSet = statement.executeQuery();
+
+            System.out.println("\n--- PRODUCTS WITH MINIMUM QUANTITY  " + minQuantity + " ---");
+
+            boolean found = false;
+
+            while (resultSet.next()) {
+                found = true;
+
+                int id = resultSet.getInt("product_id");
+                String name = resultSet.getString("product_name");
+                double price = Double.parseDouble(resultSet.getString("price"));
+                int quantity = resultSet.getInt("quantity");
+                String category = resultSet.getString("category");
+
+                System.out.println(
+                        "ID: " + id +
+                                ", Name: " + name +
+                                ", Price: " + price +
+                                ", Quantity: " + quantity +
+                                ", Category: " + category
+                );
+            }
+
+            if (!found) {
+                System.out.println(" No products found.");
+            }
+
+            resultSet.close();
+            statement.close();
+
+        } catch (Exception e) {
+            System.out.println(" Search failed!");
+            e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection(connection);
+        }
+    }
+
+
     public void searchByQuantityRange(int min, int max) {
 
         String sql = "SELECT * FROM product WHERE quantity BETWEEN ? AND ? ORDER BY quantity DESC";
